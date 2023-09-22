@@ -10,9 +10,10 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { Lock } from '@mui/icons-material';
 //import profileImg from '../img/profile.jpg';
+import logo from '../img/logo.jpg';
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -51,10 +52,12 @@ export default function Nav() {
               currentUser?.email?.charAt(0)?.toUpperCase()}
             </Avatar>
           </IconButton>
+          
         </Tooltip>
         )}
+    
       </Box>
-      
+      <img src={logo} alt="Logo"  />
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
