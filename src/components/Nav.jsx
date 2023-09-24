@@ -11,9 +11,10 @@ import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { Button, Typography } from '@mui/material';
-import { Lock } from '@mui/icons-material';
+import { Lock, Login } from '@mui/icons-material';
 //import profileImg from '../img/profile.jpg';
 import logo from '../img/logo.jpg';
+import { useAuth } from '../context/AuthContext';
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,18 +26,35 @@ export default function Nav() {
     setAnchorEl(null);
   };
   
-  const [currentUser, setCurrentUser] = React.useState({
-    email:'test@test.com',
-    displayName: 'Maria',
-    //photoURL: profileImg,
-    
-});
+ const {currentUser, setModal, logout, setAlert } = useAuth();
+
+ const openLogin = () => {
+  setModal({ isOpen: true, title: 'Login', content: <Login />})
+ };
+  
+ const handleLogout = async () => {
+  try {
+    await logout();
+  } catch (error) {
+    setAlert({
+      isAlert: true,
+      severity: 'error',
+      message: error.message,
+      timeout: 8000,
+      location: 'main',
+    });
+    console.log(error);
+  }
+};
+
+
+
   return (
     <React.Fragment>
       
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         {!currentUser ? (
-        <Button startIcon={<Lock />}>Entrar</Button> 
+        <Button startIcon={<Lock />} onClick={openLogin}>Entrar</Button> 
         ) : (
         <Tooltip title="Account settings">
           <IconButton
@@ -52,7 +70,6 @@ export default function Nav() {
               currentUser?.email?.charAt(0)?.toUpperCase()}
             </Avatar>
           </IconButton>
-          
         </Tooltip>
         )}
     
@@ -93,18 +110,17 @@ export default function Nav() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       > 
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Perfil
+        <MenuItem>
+          <Avatar set={currentUser?.photoURL} /> Perfil
         </MenuItem>
-        
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Configurações
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

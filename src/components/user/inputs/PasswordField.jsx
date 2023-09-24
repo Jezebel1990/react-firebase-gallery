@@ -1,0 +1,44 @@
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { TextField, IconButton, InputAdornment } from '@mui/material'
+import React , { useState } from 'react'
+
+const PasswordField = ({ passwordRef, id='password', label='password'}) => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClick = () => {
+      setShowPassword(!showPassword);
+    };
+    const handleMouseDown = (e) => {
+      e.preventDefault();
+    };
+
+  return (
+    <TextField
+    autoFocus
+    margin="normal"
+    variant="standard"
+    id={id}
+    label={label}
+    type={showPassword ? 'text' : 'password'}
+    fullWidth
+    required
+    inputRef={passwordRef}
+    inputProps={{ minLength: 6 }}
+     InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="Toggle Password visibility"
+              onClick={handleClick}
+              onMouseDown={handleMouseDown}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+    />
+  );
+};
+
+export default PasswordField;
