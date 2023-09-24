@@ -15,6 +15,7 @@ const Modal = () => {
     const handleClose = () => {
         setModal({ ...modal, isOpen: false });
       };
+
       useEffect(() => {
         if (modal.isOpen === false) {
           if (isAlert && location === 'modal') {
@@ -22,9 +23,6 @@ const Modal = () => {
           }
         }
       }, [modal?.isOpen]);
-
-
-
   return (
   <Dialog open={modal.isOpen} onClose={handleClose}>
   <DialogTitle>

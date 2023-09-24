@@ -15,6 +15,7 @@ import { Lock, Login } from '@mui/icons-material';
 //import profileImg from '../img/profile.jpg';
 import logo from '../img/logo.jpg';
 import { useAuth } from '../context/AuthContext';
+import Profile from './user/Profile';
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -110,11 +111,20 @@ export default function Nav() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       > 
-        <MenuItem>
+        <MenuItem onClick={()=> setModal({isOpen:true, title:"Update Profile", content:<Profile />})}        >
           <Avatar set={currentUser?.photoURL} /> Perfil
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem
+        onClick={() =>
+          setModal({
+            isOpen: true,
+            title: 'Account Settings',
+            content: <AccountSettings />,
+          })
+        }
+        
+        >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>

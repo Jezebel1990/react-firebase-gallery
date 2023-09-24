@@ -12,7 +12,15 @@ const Login = () => {
  const confirmPasswordRef = useRef();
 
  const [isRegister, setIsRegister] = useState(false);
- const {modal, setModal, signUp, login, loginWithGoogle, setAlert, setLoading} = useAuth();
+ const {
+  modal,
+  setModal, 
+  signUp, 
+  login, 
+  loginWithGoogle, 
+  setAlert, 
+  setLoading
+} = useAuth();
 
 
  const handleSubmit = async (e) => {
@@ -24,7 +32,7 @@ const Login = () => {
     const confirmPassword = confirmPasswordRef.current.value;
     try {
       if (password !== confirmPassword) {
-        throw new Error("Tente outra Senha!");
+        throw new Error("Passwords don't match");
       }
       await signUp(email, password);
       setModal({ ...modal, isOpen: false });
@@ -73,10 +81,10 @@ const handleGoogleLogin = async () => {
 };
 
 
- useEffect(()=>{
-  if(isRegister){
+ useEffect(() => {
+  if (isRegister) {
    setModal({...modal, title: 'Register'});
-  }else{
+  } else {
     setModal({...modal, title: 'Login'});
 
   }
@@ -113,17 +121,16 @@ const handleGoogleLogin = async () => {
         <Button onClick={()=> setIsRegister(!isRegister)}>
           {isRegister ? 'Login' : 'Register'}
         </Button>
+        </DialogActions>
 <DialogActions sx={{justifyContent:"center", py:"24px"}}>
    <Button
-   variant='outlined'
-   startIcon={<Google />}
-   onClick={handleGoogleLogin}
+      variant='outlined'
+      startIcon={<Google />}
+      onClick={handleGoogleLogin}
    >
     Entrar com Google
    </Button>
 </DialogActions>
-
-      </DialogActions>
     </>
   )
 }

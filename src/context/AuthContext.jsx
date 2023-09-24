@@ -21,7 +21,7 @@ export const useAuth = () => {
 
 const AuthContext = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
-    const [modal, setModal] = useState({  isOpen: false, title: '', content: '' });
+    const [modal, setModal] = useState({ isOpen: false, title: '', content: '' });
     const [alert, setAlert] = useState({
       isAlert: false,
       severity: 'info',
